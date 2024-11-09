@@ -64,9 +64,8 @@ cd ..
 # ----------------------------------------------------------------------------
 # Additional compiler flags we need.
 # It's an old library, with parts converted from FORTRAN. 
-# Some functions do not declare a return value, so we must allow implitic-int
-# and also other compat flags since we do not control the source code.
-CFLAGS="$CFLAGS -ansi -DNON_UNIX_STDIO -Wno-implicit-int -fno-strict-aliasing"
+# So, we'll suppress warnings, as there is nothing we can do about them anyway.
+CFLAGS="$CFLAGS -Wno-error -w -ansi -DNON_UNIX_STDIO"
 
 # Flags for linking shared libraries
 SO_LINK="-shared -fPIC -Wl,-soname,libcspice.so.1 $LDFLAGS -lm"
@@ -74,8 +73,12 @@ SO_LINK="-shared -fPIC -Wl,-soname,libcspice.so.1 $LDFLAGS -lm"
 # ----------------------------------------------------------------------------
 echo "Building lib/libcspice.so.1..."
 
+echo "  CPPFLAGS = $CPPFLAGS"
+echo "  CFLAGS   = $CFLAGS"
+echo "  LDFLAGS  = $LDFLAGS"
+
 # Build shared lib first (our way)
-gcc -o lib/libcspice.so.1 src/cspice/*.c src/csupport/*.c $CPPFLAGS $CFLAGS $SO_LINK
+gcc $CFLAGS -o lib/libcspice.so.1 src/cspice/*.c src/csupport/*.c $SO_LINK
 
 # ----------------------------------------------------------------------------
 # Create unversion .so symlink
@@ -103,7 +106,9 @@ echo "Restoring original build scripts..."
 for component in * ; do
   if [ -f $component/mkproduct.bak ] ; then
     # back up the build script
-    mv $component/mkprodct.bak $component/mkprodct.csh 
+    mv $component/mkprodct.bak $component/mkprodct.csh
+  fi
+done 
 
 echo "All done."
 

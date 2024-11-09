@@ -1,0 +1,49 @@
+name: Test
+
+on: 
+  push:
+    branches:
+      - main
+    paths:
+      - 'cspice-sharedlib.sh'
+      - '.github/workflows/test.yml'
+
+  pull_request:
+    paths:
+      - 'cspice-sharedlib.sh'
+      - '.github/workflows/test.yml'
+
+jobs:
+
+  build:
+    name: Test build
+
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc
+      CFLAGS: -Os -Wall -Wextra -Werror -std=c99
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install csh
+      run: sudo apt-get install csh
+
+    - name: Get CSPICE Toolkit
+      run: wget https://naif.jpl.nasa.gov/pub/naif/misc/toolkit_N0067/C/PC_Linux_GCC_64bit/packages/cspice.tar.Z
+
+    - name: Unpack CSPICE
+      run: tar -xf cspice.tar.Z
+
+    - name: Build CSPICE
+      env:
+        CFLAGS: -O2
+      run: ./cspice-sharedlib.sh
+
+    - name: List library files
+      run: ls -l cspice/lib/
+
+    - name: List executables
+      run: ls -l cspice/exe/
+
+      
+   

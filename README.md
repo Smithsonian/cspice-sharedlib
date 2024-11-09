@@ -1,7 +1,9 @@
+![Test Status](https://github.com/Smithsonian/cspice-sharedlib/actions/workflows/test.yml/badge.svg)
+
 # cspice-sharedlib
 
-Shell script to build the NAIF CSPICE Toolkit with shared (`.so`) libraries, and dynamic linking
-instead of the normal static libraries and static linking of the distribution.
+Shell script to build the NAIF CSPICE Toolkit with shared (`.so`) libraries, and dynamically link
+executable instead of the normal static libraries and static linking of the upstream distribution.
 
 Author: Attila Kovacs `<attila.kovacs[AT]cfa.harvard.edu>`
 Version: 0.9
