@@ -1,4 +1,4 @@
-name: Test
+name: Build CSPICE Toolkit
 
 on: 
   push:
@@ -6,22 +6,19 @@ on:
       - main
     paths:
       - 'cspice-sharedlib.sh'
-      - '.github/workflows/test.yml'
+      - '.github/workflows/build.yml'
 
   pull_request:
     paths:
       - 'cspice-sharedlib.sh'
-      - '.github/workflows/test.yml'
+      - '.github/workflows/build.yml'
 
 jobs:
 
   build:
-    name: Test build
+    name: Test build and install
 
     runs-on: ubuntu-latest
-    env:
-      CC: gcc
-      CFLAGS: -Os -Wall -Wextra -Werror -std=c99
     steps:
     - uses: actions/checkout@v4
 
@@ -44,6 +41,17 @@ jobs:
 
     - name: List executables
       run: ls -l cspice/exe/
+      
+    - name: Install libraries in /usr/lib
+      run: sudo cp cspice/lib/* /usr/lib/
+      
+    - name: Install binaries in /usr/bin
+      run: sudo cp cspice/exe/* /usr/bin/
+      
+    - name: Install headers in /usr/include/cspice
+      run: |
+        sudo mkdir /usr/include/cspice
+        sudo cp cspice/include/* /usr/include/cspice/
 
       
    

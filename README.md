@@ -1,4 +1,4 @@
-![Test Status](https://github.com/Smithsonian/cspice-sharedlib/actions/workflows/test.yml/badge.svg)
+![Test Build Status](https://github.com/Smithsonian/cspice-sharedlib/actions/workflows/build.yml/badge.svg)
 
 # cspice-sharedlib
 
