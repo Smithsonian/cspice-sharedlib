@@ -43,8 +43,14 @@ cd src
 
 for component in * ; do
   if [ -d $component ] ; then
-    # back up the build script
-    cp -a $component/mkprodct.csh $component/mkprodct.bak
+  
+    if [ -f $component/mkproduct.bak ] ; then
+      # restore original scripts if needed
+      cp $component/mkprodct.bak $component/mkprodct.csh
+    elif [ -f $component/mkproduct.csh ] ; then
+      # back up the original build script
+      cp -a $component/mkprodct.csh $component/mkprodct.bak
+    fi
   
     # Don't used default build for static libs or cookbook examples. 
     # We don't package these
@@ -105,10 +111,11 @@ csh makeall.csh
 echo "Restoring original build scripts..."
 for component in * ; do
   if [ -f $component/mkproduct.bak ] ; then
-    # back up the build script
     mv $component/mkprodct.bak $component/mkprodct.csh
   fi
 done 
 
+# ----------------------------------------------------------------------------
+# Done.
 echo "All done."
 

@@ -2,9 +2,9 @@
 
 # cspice-sharedlib
 
-Shell script to build the [NAIF CSPICE Toolkit](https://naif.jpl.nasa.gov/naif/toolkit.html) with 
-its shared library (`libcspice.so[.1]`), and dynamically link executable instead of the normal 
-static libraries and static linking of the upstream distribution.
+Shell script to build the [NAIF CSPICE Toolkit](https://naif.jpl.nasa.gov/naif/toolkit.html) as 
+a shared library (`libcspice.so[.1]`) and dynamically linked executables instead of the normal 
+static libraries and static linking used by the the upstream distribution.
 
 Author: Attila Kovacs `<attila.kovacs[AT]cfa.harvard.edu>`
 Version: 0.9
